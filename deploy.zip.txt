@@ -1,0 +1,30 @@
+TO CREATE DEPLOYMENT ZIP:
+
+1. Select these files/folders:
+   - index.php
+   - about.php
+   - contact.php
+   - products.php
+   - product_detail.php
+   - categories.php
+   - assets/ (folder)
+   - includes/ (folder)
+   - admin/ (folder)
+   - user/ (folder)
+   - .htaccess
+
+2. Right-click → Send to → Compressed (zipped) folder
+
+3. Name it: interno-website.zip
+
+4. Upload this ZIP to your hosting File Manager
+
+5. Extract on server
+
+6. Import database.sql separately via phpMyAdmin
+
+DO NOT include:
+- database.sql (import separately)
+- README.md
+- node_modules/
+- .git/

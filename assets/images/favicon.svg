@@ -1,0 +1,29 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern favicon with sofa icon -->
+  <rect width="32" height="32" rx="8" fill="url(#bgGradient)"/>
+  
+  <!-- Simplified sofa for favicon -->
+  <g transform="translate(6, 8)">
+    <!-- Sofa base -->
+    <rect x="2" y="10" width="16" height="6" rx="3" fill="white" opacity="0.9"/>
+    <!-- Sofa back -->
+    <rect x="3" y="4" width="14" height="8" rx="2" fill="white"/>
+    <!-- Armrests -->
+    <rect x="0" y="6" width="4" height="8" rx="2" fill="white" opacity="0.8"/>
+    <rect x="16" y="6" width="4" height="8" rx="2" fill="white" opacity="0.8"/>
+    <!-- Decorative elements -->
+    <circle cx="7" cy="8" r="1" fill="url(#dotGradient)"/>
+    <circle cx="13" cy="8" r="1" fill="url(#dotGradient)"/>
+  </g>
+  
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="dotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

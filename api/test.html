@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Tester</title>
+    <style>
+        body { font-family: Arial; padding: 20px; max-width: 800px; margin: 0 auto; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #6366f1; color: white; border: none; border-radius: 5px; }
+        button:hover { background: #4f46e5; }
+        pre { background: #f3f4f6; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        h2 { color: #1f2937; margin-top: 30px; }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <h1>INTERNO API Tester</h1>
+    
+    <h2>Products</h2>
+    <button onclick="testGetProducts()">Get All Products</button>
+    <button onclick="testGetProduct()">Get Product #1</button>
+    
+    <h2>Categories</h2>
+    <button onclick="testGetCategories()">Get Categories</button>
+    
+    <h2>Authentication</h2>
+    <button onclick="testLogin()">Login (admin)</button>
+    <button onclick="testCheckAuth()">Check Auth</button>
+    <button onclick="testLogout()">Logout</button>
+    
+    <h2>Cart</h2>
+    <button onclick="testGetCart()">Get Cart</button>
+    <button onclick="testAddToCart()">Add to Cart</button>
+    
+    <h2>Orders</h2>
+    <button onclick="testGetOrders()">Get Orders</button>
+    
+    <h2>Response:</h2>
+    <pre id="response">Click a button to test API...</pre>
+
+    <script>
+        const API_BASE = 'http://localhost/interno-php/api';
+        
+        async function apiCall(url, options = {}) {
+            try {
+                const response = await fetch(API_BASE + url, {
+                    ...options,
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                document.getElementById('response').innerHTML = 
+                    `<span class="${response.ok ? 'success' : 'error'}">Status: ${response.status}</span>\n` +
+                    JSON.stringify(data, null, 2);
+            } catch(error) {
+                document.getElementById('response').innerHTML = 
+                    `<span class="error">Error: ${error.message}</span>`;
+            }
+        }
+        
+        function testGetProducts() {
+            apiCall('/products/index.php');
+        }
+        
+        function testGetProduct() {
+            apiCall('/products/index.php?id=1');
+        }
+        
+        function testGetCategories() {
+            apiCall('/categories/index.php');
+        }
+        
+        function testLogin() {
+            apiCall('/auth/index.php?action=login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: 'admin@interno.com',
+                    password: 'password'
+                })
+            });
+        }
+        
+        function testCheckAuth() {
+            apiCall('/auth/index.php?action=check');
+        }
+        
+        function testLogout() {
+            apiCall('/auth/index.php?action=logout');
+        }
+        
+        function testGetCart() {
+            apiCall('/cart/index.php');
+        }
+        
+        function testAddToCart() {
+            apiCall('/cart/index.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    product_id: 1,
+                    quantity: 1
+                })
+            });
+        }
+        
+        function testGetOrders() {
+            apiCall('/orders/index.php');
+        }
+    </script>
+</body>
+</html>
