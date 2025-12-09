@@ -69,9 +69,6 @@ if (strpos($currentDir, '/user') !== false || strpos($currentDir, '/admin') !== 
                     <li><a href="<?php echo $assetsPath; ?>contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">
                         Contact
                     </a></li>
-                    <li><a href="#" onclick="openAdminModal()" class="admin-nav-link">
-                        Admin
-                    </a></li>
                 </ul>
                 
 
@@ -500,7 +497,11 @@ function handleLogin(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.reload();
+            if (data.redirect === 'admin') {
+                window.location.href = '<?php echo $assetsPath; ?>admin/dashboard.php';
+            } else {
+                window.location.reload();
+            }
         } else {
             alert(data.message || 'Login failed');
         }

@@ -32,7 +32,8 @@ try {
         // $stmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
         // $stmt->execute([$user['id']]);
         
-        echo json_encode(['success' => true, 'message' => 'Login successful']);
+        $redirect = ($user['role'] === 'admin') ? 'admin' : 'user';
+        echo json_encode(['success' => true, 'message' => 'Login successful', 'redirect' => $redirect]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Invalid username or password']);
     }
