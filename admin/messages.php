@@ -123,7 +123,10 @@ try {
     <div class="admin-header">
         <div class="header-left">
             <div class="logo">🛋️ INTERNO</div>
-            <div class="nav-tabs">
+            <button class="mobile-menu-toggle" onclick="toggleAdminMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-tabs" id="adminNavTabs">
                 <a href="dashboard.php" class="nav-tab">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
@@ -160,9 +163,11 @@ try {
     
     <div class="admin-content">
         <div class="page-header">
-            <div class="header-left">
-                <h1><i class="fas fa-cog"></i> Website Management</h1>
-                <div class="stats-summary">
+            <h1><i class="fas fa-cog"></i> Website Management</h1>
+        </div>
+        
+        <div class="stats-summary-container">
+            <div class="stats-summary">
                     <div class="stat-card">
                         <div class="stat-number"><?php echo $totalProducts; ?></div>
                         <div class="stat-label">Products</div>
@@ -181,7 +186,6 @@ try {
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Website Settings -->
@@ -401,26 +405,27 @@ body {
 }
 
 .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .page-header h1 {
     font-size: 36px;
     color: #2c3e50;
-    margin: 0 0 8px 0;
+    margin: 0;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
+.stats-summary-container {
+    margin-bottom: 30px;
+}
+
 .stats-summary {
     display: flex;
     gap: 20px;
-    margin-top: 15px;
+    flex-wrap: wrap;
 }
 
 .stat-card {
@@ -431,6 +436,7 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     border: 1px solid #e5e7eb;
     min-width: 100px;
+    flex: 1;
 }
 
 .stat-number {
@@ -626,6 +632,30 @@ body {
     margin-bottom: 24px;
 }
 
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
+    }
+    
+    .stats-summary {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .stat-card {
+        min-width: 0;
+    }
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -747,9 +777,87 @@ body {
     color: #374151;
 }
 
+.mobile-menu-toggle {
+    display: none;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    transition: all 0.3s;
+}
+
+.mobile-menu-toggle:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.mobile-menu-toggle i {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+    .admin-header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+    
+    .header-left {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-tabs {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 15px;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .nav-tabs.active {
+        display: flex;
+    }
+    
+    .nav-tab {
+        width: 100%;
+        padding: 12px 16px;
+        justify-content: flex-start;
+        background: rgba(255,255,255,0.05);
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .welcome {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .admin-content {
-        padding: 20px;
+        padding: 20px 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
     }
     
     .filters-form {
@@ -781,6 +889,53 @@ body {
     
     .action-btn {
         justify-content: center;
+    }
+    
+    .admin-header {
+        padding: 12px 15px;
+    }
+    
+    .logo {
+        font-size: 16px;
+    }
+    
+    .btn-view-site,
+    .btn-logout {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 15px;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 6px 10px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .page-header h1 {
+        font-size: 24px;
+    }
+    
+    .stats-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .settings-section,
+    .tools-section {
+        padding: 16px;
+    }
+    
+    .tool-card {
+        padding: 20px;
     }
 }
 </style>
@@ -1006,6 +1161,51 @@ function deleteMessage(id) {
         .catch(error => alert('Error deleting message'));
     }
 }
+
+function toggleAdminMenu() {
+    const navTabs = document.getElementById('adminNavTabs');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const icon = toggle.querySelector('i');
+    
+    navTabs.classList.toggle('active');
+    
+    if (navTabs.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-tab');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 1024) {
+                const navTabs = document.getElementById('adminNavTabs');
+                if (navTabs.classList.contains('active')) {
+                    toggleAdminMenu();
+                }
+            }
+        });
+    });
+    
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+            const navTabs = document.getElementById('adminNavTabs');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (navTabs && toggle) {
+                const icon = toggle.querySelector('i');
+                navTabs.classList.remove('active');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+    });
+});
 
 // Add CSS for animations
 const style = document.createElement('style');

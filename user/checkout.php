@@ -1222,12 +1222,240 @@ ob_end_flush();
 }
 
 @media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
+    .premium-checkout {
+        padding: 1rem 0;
+    }
+    
+    .container {
+        padding: 0 0.75rem;
+    }
+    
+    .checkout-header {
+        margin-bottom: 2rem;
     }
     
     .header-content h1 {
         font-size: 2rem;
+    }
+    
+    .header-content p {
+        font-size: 0.95rem;
+    }
+    
+    .checkout-grid {
+        gap: 1.5rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid:has(.form-group:nth-child(3)) {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-card {
+        border-radius: 16px;
+    }
+    
+    .section-header {
+        padding: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .section-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.25rem;
+    }
+    
+    .section-content {
+        padding: 1.5rem;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 0.875rem;
+        font-size: 16px;
+    }
+    
+    .option-card {
+        padding: 1.25rem;
+    }
+    
+    .option-header {
+        flex-wrap: wrap;
+    }
+    
+    .option-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .option-info h3 {
+        font-size: 1rem;
+    }
+    
+    .option-price .price {
+        font-size: 1.1rem;
+    }
+    
+    .upi-apps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .method-card {
+        padding: 1.25rem;
+    }
+    
+    .method-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .method-info h3 {
+        font-size: 0.95rem;
+    }
+    
+    .card-form .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-card {
+        padding: 1.5rem;
+    }
+    
+    .summary-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .place-order-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.75rem;
+    }
+    
+    .header-content p {
+        font-size: 0.875rem;
+    }
+    
+    .brand-badge {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.875rem;
+    }
+    
+    .section-header {
+        padding: 1.25rem;
+    }
+    
+    .section-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.15rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.15rem;
+    }
+    
+    .section-title p {
+        font-size: 0.8rem;
+    }
+    
+    .section-content {
+        padding: 1.25rem;
+    }
+    
+    .option-card {
+        padding: 1rem;
+    }
+    
+    .option-features {
+        gap: 0.4rem;
+    }
+    
+    .feature {
+        font-size: 0.8rem;
+    }
+    
+    .upi-apps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .upi-app {
+        padding: 0.75rem;
+    }
+    
+    .app-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+    
+    .upi-app span {
+        font-size: 0.7rem;
+    }
+    
+    .method-card {
+        padding: 1rem;
+    }
+    
+    .payment-details {
+        padding: 1.25rem;
+    }
+    
+    .summary-card {
+        padding: 1.25rem;
+    }
+    
+    .item-image img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .item-details h4 {
+        font-size: 0.8rem;
+    }
+    
+    .item-details p {
+        font-size: 0.7rem;
+    }
+    
+    .item-total {
+        font-size: 0.8rem;
+    }
+    
+    .calc-row {
+        font-size: 0.8rem;
+    }
+    
+    .calc-row.total {
+        font-size: 1rem;
+    }
+    
+    .place-order-btn {
+        padding: 0.8rem 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .security-badges {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
 </style>

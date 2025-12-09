@@ -172,7 +172,10 @@ try {
     <div class="admin-header">
         <div class="header-left">
             <div class="logo">🛋️ INTERNO</div>
-            <div class="nav-tabs">
+            <button class="mobile-menu-toggle" onclick="toggleAdminMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-tabs" id="adminNavTabs">
                 <a href="dashboard.php" class="nav-tab">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
@@ -821,17 +824,159 @@ body {
     border-top: 1px solid #e5e7eb;
 }
 
+.mobile-menu-toggle {
+    display: none;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    transition: all 0.3s;
+}
+
+.mobile-menu-toggle:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.mobile-menu-toggle i {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+    .admin-header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+    
+    .header-left {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-tabs {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 15px;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .nav-tabs.active {
+        display: flex;
+    }
+    
+    .nav-tab {
+        width: 100%;
+        padding: 12px 16px;
+        justify-content: flex-start;
+        background: rgba(255,255,255,0.05);
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .welcome {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
 @media (max-width: 768px) {
+    .admin-header {
+        padding: 12px 15px;
+    }
+    
+    .logo {
+        font-size: 16px;
+    }
+    
+    .btn-view-site,
+    .btn-logout {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
     .form-grid {
         grid-template-columns: 1fr;
     }
     
     .admin-content {
-        padding: 20px;
+        padding: 20px 15px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 24px;
     }
     
     .products-table-container {
         overflow-x: auto;
+    }
+    
+    .products-table {
+        min-width: 800px;
+    }
+    
+    .product-modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    #productForm {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 15px;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 6px 10px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .admin-content {
+        padding: 15px 10px;
+    }
+    
+    .page-header h1 {
+        font-size: 20px;
+    }
+    
+    .product-modal-header {
+        padding: 20px;
+    }
+    
+    #productForm {
+        padding: 16px;
     }
 }
 </style>
@@ -908,6 +1053,51 @@ document.addEventListener('click', function(event) {
     if (event.target === modal) {
         closeProductModal();
     }
+});
+
+function toggleAdminMenu() {
+    const navTabs = document.getElementById('adminNavTabs');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const icon = toggle.querySelector('i');
+    
+    navTabs.classList.toggle('active');
+    
+    if (navTabs.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-tab');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 1024) {
+                const navTabs = document.getElementById('adminNavTabs');
+                if (navTabs.classList.contains('active')) {
+                    toggleAdminMenu();
+                }
+            }
+        });
+    });
+    
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+            const navTabs = document.getElementById('adminNavTabs');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (navTabs && toggle) {
+                const icon = toggle.querySelector('i');
+                navTabs.classList.remove('active');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+    });
 });
 </script>
 

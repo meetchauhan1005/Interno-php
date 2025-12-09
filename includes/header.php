@@ -48,8 +48,12 @@ if (strpos($currentDir, '/user') !== false || strpos($currentDir, '/admin') !== 
                 <span class="logo-text">INTERNO</span>
             </a>
             
-            <div class="nav-center">
-                <ul class="nav-links">
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-center" id="navCenter">
+                <ul class="nav-links" id="navLinks">
                     <li><a href="<?php echo $assetsPath; ?>index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                         Home
                     </a></li>
@@ -333,14 +337,14 @@ function updateCartCount() {
 
 // Mobile menu functions
 function toggleMobileMenu() {
-    const navLinks = document.getElementById('navLinks');
+    const navCenter = document.getElementById('navCenter');
     const toggle = document.querySelector('.mobile-menu-toggle');
     const icon = toggle.querySelector('i');
     
-    navLinks.classList.toggle('active');
+    navCenter.classList.toggle('active');
     toggle.classList.toggle('active');
     
-    if (navLinks.classList.contains('active')) {
+    if (navCenter.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
         document.body.style.overflow = 'hidden';
@@ -359,34 +363,27 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
-                toggleMobileMenu();
+                const navCenter = document.getElementById('navCenter');
+                if (navCenter.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
             }
         });
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const nav = document.querySelector('nav');
-        const navLinks = document.getElementById('navLinks');
-
-        
-        if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
-            toggleMobileMenu();
-        }
     });
     
     // Handle window resize
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
-            const navLinks = document.getElementById('navLinks');
+            const navCenter = document.getElementById('navCenter');
             const toggle = document.querySelector('.mobile-menu-toggle');
-            const icon = toggle.querySelector('i');
-            
-            navLinks.classList.remove('active');
-            toggle.classList.remove('active');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-            document.body.style.overflow = 'auto';
+            if (navCenter && toggle) {
+                const icon = toggle.querySelector('i');
+                navCenter.classList.remove('active');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
         }
     });
 });
@@ -410,6 +407,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function openAdminModal() {
     document.getElementById('adminModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    
+    if (window.innerWidth <= 768) {
+        const navCenter = document.getElementById('navCenter');
+        if (navCenter && navCenter.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    }
 }
 
 function closeAdminModal() {

@@ -62,12 +62,36 @@ try {
 <div class="admin-container">
     <div class="admin-header">
         <div class="header-left">
-            <div class="logo">
-                <span style="font-size: 1.2rem; margin-right: 8px;">🛋️</span>
-                <i class="fas fa-shield-alt"></i> Admin Panel
+            <div class="logo">🛋️ INTERNO</div>
+            <button class="mobile-menu-toggle" onclick="toggleAdminMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-tabs" id="adminNavTabs">
+                <a href="dashboard.php" class="nav-tab">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="products.php" class="nav-tab">
+                    <i class="fas fa-box"></i> Products
+                </a>
+                <a href="categories.php" class="nav-tab">
+                    <i class="fas fa-tags"></i> Categories
+                </a>
+                <a href="orders.php" class="nav-tab">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </a>
+                <a href="users.php" class="nav-tab">
+                    <i class="fas fa-users"></i> Users
+                </a>
+                <a href="messages.php" class="nav-tab">
+                    <i class="fas fa-envelope"></i> Messages
+                </a>
+                <a href="website_data.php" class="nav-tab active">
+                    <i class="fas fa-database"></i> Website Data
+                </a>
             </div>
         </div>
         <div class="header-right">
+            <span class="welcome">Hello, admin</span>
             <a href="../index.php" class="btn-view-site">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>
@@ -290,6 +314,58 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    min-width: 140px;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.nav-tab:hover,
+.nav-tab.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    transition: all 0.3s;
+}
+
+.mobile-menu-toggle:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.mobile-menu-toggle i {
+    font-size: 1.25rem;
+}
+
+.welcome {
+    font-weight: 500;
 }
 
 .header-right {
@@ -516,28 +592,279 @@ th {
 .status.delivered { background: #d1fae5; color: #065f46; }
 .status.shipped { background: #dbeafe; color: #1e40af; }
 
+@media (max-width: 1024px) {
+    .admin-header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+    
+    .header-left {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-tabs {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 15px;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .nav-tabs.active {
+        display: flex;
+    }
+    
+    .nav-tab {
+        width: 100%;
+        padding: 12px 16px;
+        justify-content: flex-start;
+        background: rgba(255,255,255,0.05);
+    }
+    
+    .nav-tab:hover,
+    .nav-tab.active {
+        background: rgba(255,255,255,0.2);
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .welcome {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
 @media (max-width: 768px) {
+    .admin-header {
+        padding: 12px 15px;
+    }
+    
+    .logo {
+        font-size: 16px;
+    }
+    
+    .btn-view-site,
+    .btn-logout {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
     .admin-content {
-        padding: 20px;
+        padding: 20px 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 24px;
+    }
+    
+    .page-header p {
+        font-size: 14px;
     }
     
     .stats-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .stat-content h3 {
+        font-size: 20px;
     }
     
     .categories-grid {
         grid-template-columns: 1fr;
     }
     
+    .data-section {
+        padding: 20px;
+        overflow-x: auto;
+    }
+    
+    .data-section h2 {
+        font-size: 18px;
+    }
+    
     table {
-        font-size: 14px;
+        font-size: 13px;
+        min-width: 600px;
     }
     
     th, td {
-        padding: 8px;
+        padding: 10px 8px;
+    }
+    
+    .product-info {
+        flex-wrap: nowrap;
+    }
+    
+    .product-info span {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 15px;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 6px 10px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .btn-view-site,
+    .btn-logout {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .admin-content {
+        padding: 15px 10px;
+    }
+    
+    .page-header h1 {
+        font-size: 20px;
+    }
+    
+    .page-header p {
+        font-size: 13px;
+    }
+    
+    .stats-grid {
+        gap: 12px;
+    }
+    
+    .stat-card {
+        padding: 16px;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .stat-content h3 {
+        font-size: 18px;
+    }
+    
+    .stat-content p {
+        font-size: 13px;
+    }
+    
+    .data-section {
+        padding: 16px;
+    }
+    
+    .data-section h2 {
+        font-size: 16px;
+    }
+    
+    .category-item {
+        padding: 12px;
+    }
+    
+    .category-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .category-info h4 {
+        font-size: 13px;
+    }
+    
+    .category-info p {
+        font-size: 11px;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 8px 6px;
     }
 }
 </style>
+
+<script>
+function toggleAdminMenu() {
+    const navTabs = document.getElementById('adminNavTabs');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const icon = toggle.querySelector('i');
+    
+    navTabs.classList.toggle('active');
+    
+    if (navTabs.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-tab');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 1024) {
+                const navTabs = document.getElementById('adminNavTabs');
+                if (navTabs.classList.contains('active')) {
+                    toggleAdminMenu();
+                }
+            }
+        });
+    });
+    
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+            const navTabs = document.getElementById('adminNavTabs');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (navTabs && toggle) {
+                const icon = toggle.querySelector('i');
+                navTabs.classList.remove('active');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+    });
+});
+</script>
 
 </body>
 </html>

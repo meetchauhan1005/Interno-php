@@ -105,7 +105,10 @@ try {
     <div class="admin-header">
         <div class="header-left">
             <div class="logo">🛋️ INTERNO</div>
-            <div class="nav-tabs">
+            <button class="mobile-menu-toggle" onclick="toggleAdminMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-tabs" id="adminNavTabs">
                 <a href="dashboard.php" class="nav-tab active">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
@@ -634,39 +637,335 @@ body {
     font-style: italic;
 }
 
+.mobile-menu-toggle {
+    display: none;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.mobile-menu-toggle i {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+    .admin-header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+    
+    .header-left {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-tabs {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 15px;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .nav-tabs.active {
+        display: flex;
+    }
+    
+    .nav-tab {
+        width: 100%;
+        padding: 12px 16px;
+        justify-content: flex-start;
+        background: rgba(255,255,255,0.05);
+    }
+    
+    .nav-tab:hover,
+    .nav-tab.active {
+        background: rgba(255,255,255,0.2);
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .welcome {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .admin-content {
+        padding: 20px 15px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        padding: 30px;
+    }
+    
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .stat-number {
+        font-size: 36px;
+    }
+    
+    .stat-label {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
+    .admin-header {
+        padding: 12px 15px;
+    }
+    
+    .logo {
+        font-size: 16px;
+    }
+    
+    .header-right {
+        gap: 10px;
+    }
+    
+    .btn-view-site,
+    .btn-logout {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .admin-content {
+        padding: 15px 10px;
+    }
+    
+    .page-header h1 {
+        font-size: 24px;
+    }
+    
+    .page-header p {
+        font-size: 14px;
+    }
+    
+    .stats-grid {
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 25px 20px;
+    }
+    
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .stat-number {
+        font-size: 32px;
+    }
+    
+    .stat-label {
+        font-size: 14px;
+    }
+    
     .charts-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .chart-card,
+    .step-chart-card {
+        padding: 20px;
     }
     
     .chart-header {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .chart-header h3 {
+        font-size: 18px;
+    }
+    
+    .chart-header p {
+        font-size: 13px;
+    }
+    
+    .step-chart {
+        height: 300px;
     }
     
     .revenue-stats {
         text-align: left;
     }
-    .admin-sidebar {
-        width: 100%;
-        position: relative;
-        height: auto;
+    
+    .revenue-amount {
+        font-size: 24px;
     }
     
-    .admin-main {
-        margin-left: 0;
+    .activity-card {
+        padding: 20px;
     }
     
-    .stats-row {
-        grid-template-columns: repeat(2, 1fr);
+    .activity-header h3 {
+        font-size: 18px;
     }
     
-    .content-grid {
-        grid-template-columns: 1fr;
+    .activity-item {
+        padding: 12px;
+        gap: 12px;
     }
     
-    .actions-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .activity-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .activity-title {
+        font-size: 14px;
+    }
+    
+    .activity-meta {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 10px 12px;
+    }
+    
+    .logo {
+        font-size: 15px;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 6px 10px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .mobile-menu-toggle i {
+        font-size: 1.1rem;
+    }
+    
+    .nav-tabs {
+        padding: 12px;
+    }
+    
+    .nav-tab {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .header-right {
+        gap: 8px;
+    }
+    
+    .btn-view-site,
+    .btn-logout {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .admin-content {
+        padding: 12px 8px;
+    }
+    
+    .page-header h1 {
+        font-size: 22px;
+    }
+    
+    .page-header p {
+        font-size: 13px;
+    }
+    
+    .stat-card {
+        padding: 20px 15px;
+    }
+    
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+    }
+    
+    .chart-card,
+    .step-chart-card,
+    .activity-card {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .chart-header h3,
+    .activity-header h3 {
+        font-size: 16px;
+    }
+    
+    .step-chart {
+        height: 250px;
+    }
+    
+    .activity-item {
+        padding: 10px;
+    }
+    
+    .activity-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
     }
 }
 </style>
@@ -766,6 +1065,54 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (salesCanvas) salesCanvas.style.height = '300px';
     if (orderCanvas) orderCanvas.style.height = '300px';
+});
+
+// Mobile menu toggle
+function toggleAdminMenu() {
+    const navTabs = document.getElementById('adminNavTabs');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const icon = toggle.querySelector('i');
+    
+    navTabs.classList.toggle('active');
+    
+    if (navTabs.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+// Close menu when clicking nav links on mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-tab');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 1024) {
+                const navTabs = document.getElementById('adminNavTabs');
+                if (navTabs.classList.contains('active')) {
+                    toggleAdminMenu();
+                }
+            }
+        });
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+            const navTabs = document.getElementById('adminNavTabs');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (navTabs && toggle) {
+                const icon = toggle.querySelector('i');
+                navTabs.classList.remove('active');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+    });
 });
 </script>
 
